@@ -1,0 +1,33 @@
+{
+  "modo": "Tempo",
+  "frames": [
+    { "frame": 0,   "held": ["D"],  "pressed": [] },
+    { "frame": 8,   "held": ["D"],  "pressed": ["F"] },
+    { "frame": 9,   "held": ["D"],  "pressed": [] },
+    { "frame": 16,  "held": ["D"],  "pressed": ["F"] },
+    { "frame": 17,  "held": ["S"],  "pressed": [] },
+    { "frame": 19,  "held": ["A"],  "pressed": [] },
+    { "frame": 27,  "held": ["A"],  "pressed": ["F"] },
+    { "frame": 28,  "held": ["A"],  "pressed": [] },
+    { "frame": 36,  "held": ["A"],  "pressed": ["F"] },
+    { "frame": 37,  "held": ["S"],  "pressed": [] },
+    { "frame": 39,  "held": ["D"],  "pressed": [] },
+    { "frame": 47,  "held": ["D"],  "pressed": ["F"] },
+    { "frame": 48,  "held": ["D"],  "pressed": [] },
+    { "frame": 56,  "held": ["D"],  "pressed": ["F"] },
+    { "frame": 57,  "held": ["S"],  "pressed": [] },
+    { "frame": 59,  "held": ["A"],  "pressed": [] },
+    { "frame": 67,  "held": ["A"],  "pressed": ["F"] },
+    { "frame": 68,  "held": ["A"],  "pressed": [] },
+    { "frame": 76,  "held": ["A"],  "pressed": ["F"] },
+    { "frame": 77,  "held": ["S"],  "pressed": [] },
+    { "frame": 79,  "held": ["D"],  "pressed": [] },
+    { "frame": 87,  "held": ["D"],  "pressed": ["F"] },
+    { "frame": 88,  "held": ["D"],  "pressed": [] },
+    { "frame": 96,  "held": ["D"],  "pressed": ["F"] },
+    { "frame": 97,  "held": ["S"],  "pressed": [] },
+    { "frame": 99,  "held": ["A"],  "pressed": [] },
+    { "frame": 107, "held": ["A"],  "pressed": ["F"] },
+    { "frame": 108, "held": [],     "pressed": [] }
+  ]
+}

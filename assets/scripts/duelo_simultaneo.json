@@ -1,0 +1,21 @@
+{
+  "modo": "Tempo",
+  "frames": [
+    { "frame": 0,   "held": ["W", "Cima"],          "pressed": [] },
+    { "frame": 10,  "held": ["W", "Cima"],          "pressed": ["F", "Num0"] },
+    { "frame": 11,  "held": ["W", "Cima"],          "pressed": [] },
+    { "frame": 20,  "held": ["D", "Direita"],       "pressed": [] },
+    { "frame": 30,  "held": ["D", "Direita"],       "pressed": ["F", "Num0"] },
+    { "frame": 31,  "held": ["D", "Direita"],       "pressed": [] },
+    { "frame": 40,  "held": ["S", "Baixo"],         "pressed": [] },
+    { "frame": 50,  "held": ["S", "Baixo"],         "pressed": ["F", "Num0"] },
+    { "frame": 51,  "held": ["S", "Baixo"],         "pressed": [] },
+    { "frame": 60,  "held": ["A", "Esquerda"],      "pressed": [] },
+    { "frame": 70,  "held": ["A", "Esquerda"],      "pressed": ["F", "Num0"] },
+    { "frame": 71,  "held": ["A", "Esquerda"],      "pressed": [] },
+    { "frame": 80,  "held": ["W", "Cima"],          "pressed": [] },
+    { "frame": 90,  "held": ["D", "Baixo"],         "pressed": ["F"] },
+    { "frame": 91,  "held": ["D", "Baixo"],         "pressed": [] },
+    { "frame": 100, "held": [],                     "pressed": [] }
+  ]
+}
