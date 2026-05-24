@@ -9,8 +9,12 @@ class GerenciadorAssets {
 public:
     explicit GerenciadorAssets(IRenderer& renderer) : _renderer(renderer) {}
 
-    TextureHandle carregarTextura(const std::string&) { return 0; }
-    void liberarTextura(TextureHandle) {}
+    TextureHandle carregarTextura(const std::string& path) {
+        return _renderer.loadTexture(path);
+    }
+    void liberarTextura(TextureHandle tex) {
+        _renderer.freeTexture(tex);
+    }
 };
 
 #endif // MINECIN_CORE_GERENCIADORASSETS_H
