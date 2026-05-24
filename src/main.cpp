@@ -1,7 +1,10 @@
 #include "core/Jogo.h"
 #include "core/IProvedorInput.h"
-#include "renderer/NullRenderer.h"
 #include "enums/ModoJogo.h"
+#include "renderer/NullRenderer.h"
+#include "renderer/Janela.h"
+#include "renderer/OpenGLRenderer.h"
+#include "input/ManipuladorInputGLFW.h"
 #include "sim/ProvedorInputSim.h"
 
 #include <spdlog/spdlog.h>
@@ -11,9 +14,7 @@
 
 #include <fstream>
 #include <iostream>
-#include <memory>
 #include <string>
-#include <vector>
 
 static void configurarLog() {
     auto consoleSink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
@@ -64,11 +65,10 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    NullRenderer renderer;
-
     if (simulacao) {
         spdlog::info("Modo simulacao: {}", scriptPath);
 
+        NullRenderer     renderer;
         ProvedorInputSim input;
         input.carregarScript(scriptPath);
 
@@ -92,23 +92,19 @@ int main(int argc, char* argv[]) {
         jogo.imprimirResumo();
 
     } else {
-        spdlog::info("Modo normal (sem janela) — use --simulacao <script.json>");
+        spdlog::info("Modo normal");
 
-        InputNulo input;
-        Jogo      jogo(renderer, input);
-        jogo.inicializar(ModoJogo::Tempo);
+        Janela          janela(680, 680, "MINECIn");
+        OpenGLRenderer  renderer(680, 680);
+        ManipuladorInputGLFW input(janela.ptr());
 
-        constexpr float DT    = 1.0f / 30.0f;
-        constexpr int   LIMIT = 2000;
-        int             frames = 0;
+        Jogo jogo(renderer, input);
+        jogo.executar(
+            ModoJogo::Tempo,
+            [&]{ return janela.deveFechar(); },
+            [&]{ janela.processarEventos(); },
+            [&]{ janela.trocarBuffers(); });
 
-        while (!jogo.terminou() && frames < LIMIT) {
-            jogo.processar(DT);
-            input.poll();
-            ++frames;
-        }
-
-        spdlog::info("Frames simulados: {}", frames);
         jogo.imprimirResumo();
     }
 

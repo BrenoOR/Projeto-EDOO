@@ -4,8 +4,8 @@ set -e
 SRC="src"
 OUT="bin/minecin"
 CXX="${CXX:-g++}"
-CXXFLAGS="-std=c++17 -Wall -Wextra -I${SRC} -I/usr/include/jsoncpp"
-LDFLAGS="-ljsoncpp -lspdlog -lfmt"
+CXXFLAGS="-std=c++17 -Wall -Wextra -I${SRC} -I/usr/include/jsoncpp -Iinclude"
+LDFLAGS="-ljsoncpp -lspdlog -lfmt -lglfw -lGLEW -lGL"
 
 mkdir -p bin
 
@@ -25,6 +25,11 @@ SOURCES=(
     "${SRC}/telas/TelaInicio.cpp"
     "${SRC}/core/Jogo.cpp"
     "${SRC}/sim/ProvedorInputSim.cpp"
+    "${SRC}/renderer/ShaderProgram.cpp"
+    "${SRC}/renderer/SpriteBatch.cpp"
+    "${SRC}/renderer/OpenGLRenderer.cpp"
+    "${SRC}/renderer/Janela.cpp"
+    "${SRC}/input/ManipuladorInputGLFW.cpp"
 )
 
 echo "Compilando MINECIn..."
