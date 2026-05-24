@@ -1,5 +1,6 @@
 #include "mundo/Pedra.h"
 #include "entidades/Personagem.h"
+#include <spdlog/spdlog.h>
 
 Pedra::Pedra(Rect b, int dur, TextureHandle tex)
     : bounds(b), texture(tex), _durabilidade(dur) {}
@@ -10,6 +11,7 @@ void Pedra::mostrar(IRenderer& r) const {
 
 void Pedra::quebrar(Personagem& p) {
     _durabilidade -= p.danoPicareta;
+    spdlog::debug("Pedra::quebrar dur={} morto={}", _durabilidade, _durabilidade <= 0);
     if (_durabilidade <= 0) {
         p.inventario.pedra += 2;
         _morto = true;

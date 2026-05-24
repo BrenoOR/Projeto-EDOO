@@ -1,4 +1,5 @@
 #include "entidades/Personagem.h"
+#include <spdlog/spdlog.h>
 
 Personagem::Personagem(Vect2 posSpawn)
     : _pos(posSpawn), _posSpawn(posSpawn) {}
@@ -54,14 +55,18 @@ void Personagem::limitarPosicao(Rect lim) {
 }
 
 void Personagem::voltarParaSpawn() {
+    spdlog::debug("Personagem::voltarParaSpawn pos=({},{})", _posSpawn.x, _posSpawn.y);
     _pos = _posSpawn;
 }
 
 int Personagem::calcularPontuacao() const {
-    return (inventario.pedra / 10) * 1
-         + inventario.magnetita    * 1
-         + inventario.cobre        * 2
-         + inventario.ouro         * 5;
+    int pts = (inventario.pedra / 10) * 1
+            + inventario.magnetita    * 1
+            + inventario.cobre        * 2
+            + inventario.ouro         * 5;
+    spdlog::debug("calcularPontuacao pts={} mag={} cob={} our={} ped={}",
+        pts, inventario.magnetita, inventario.cobre, inventario.ouro, inventario.pedra);
+    return pts;
 }
 
 Rect Personagem::getLimites() const {
