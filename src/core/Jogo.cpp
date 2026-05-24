@@ -1,6 +1,10 @@
 #include "core/Jogo.h"
 #include "telas/TelaHistoria.h"
 #include "telas/TelaFinal.h"
+#include "renderer/IRenderer.h"
+#include "tipos/Color.h"
+#include <spdlog/spdlog.h>
+#include <chrono>
 #include <iostream>
 
 Jogo::Jogo(IRenderer& renderer, IProvedorInput& input)
@@ -21,6 +25,53 @@ void Jogo::processar(float dt) {
     auto* final = dynamic_cast<TelaFinal*>(_telaAtual.get());
     if (final && final->encerrou())
         _terminou = true;
+}
+
+void Jogo::mostrar() const {
+    if (_telaAtual)
+        _telaAtual->mostrar(_renderer);
+}
+
+void Jogo::executar(ModoJogo modo,
+                    const std::function<bool()>&  shouldQuit,
+                    const std::function<void()>&  pollEvents,
+                    const std::function<void()>&  swapBuffers)
+{
+    using Clock = std::chrono::steady_clock;
+    using Dur   = std::chrono::duration<double>;
+
+    inicializar(modo);
+
+    constexpr double PASSO    = 1.0 / 30.0;
+    constexpr int    MAX_ITER = 5;
+    double           lag      = 0.0;
+    auto             anterior = Clock::now();
+
+    spdlog::info("Jogo::executar iniciado");
+
+    while (!terminou() && !shouldQuit()) {
+        pollEvents();
+
+        auto   agora = Clock::now();
+        double delta = Dur(agora - anterior).count();
+        anterior     = agora;
+        if (delta > 0.25) delta = 0.25; // evita lag
+
+        lag += delta;
+        int iter = 0;
+        while (lag >= PASSO && iter < MAX_ITER) {
+            processar((float)PASSO);
+            lag  -= PASSO;
+            ++iter;
+        }
+
+        _renderer.beginFrame(Color::black());
+        mostrar();
+        _renderer.endFrame();
+        swapBuffers();
+    }
+
+    spdlog::info("Jogo::executar finalizado");
 }
 
 void Jogo::imprimirResumo() const {
