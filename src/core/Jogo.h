@@ -2,22 +2,22 @@
 #define MINECIN_CORE_JOGO_H
 
 #include "core/Tela.h"
-#include "core/GerenciadorAssets.h"
+#include "core/AssetsHandler.h"
 #include "enums/ModoJogo.h"
 #include <functional>
 #include <memory>
 
 class IRenderer;
-class IProvedorInput;
+class IInputProvider;
 
 class Jogo {
     IRenderer&            _renderer;
-    IProvedorInput&       _input;
-    GerenciadorAssets     _assets;
+    IInputProvider&       _input;
+    AssetsHandler         _assets;
     std::unique_ptr<Tela> _telaAtual;
     bool                  _terminou = false;
 public:
-    Jogo(IRenderer& renderer, IProvedorInput& input);
+    Jogo(IRenderer& renderer, IInputProvider& input);
     void inicializar(ModoJogo modo);
     void processar(float dt);
     void mostrar() const;

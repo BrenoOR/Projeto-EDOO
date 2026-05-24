@@ -1,4 +1,4 @@
-#include "sim/ProvedorInputSim.h"
+#include "sim/InputSimProvider.h"
 #include <json/json.h>
 #include <fstream>
 #include <stdexcept>
@@ -29,7 +29,7 @@ static Tecla teclaDeString(const std::string& s) {
     return it->second;
 }
 
-void ProvedorInputSim::carregarScript(const std::string& caminho) {
+void InputSimProvider::carregarScript(const std::string& caminho) {
     std::ifstream arquivo(caminho);
     if (!arquivo)
         throw std::runtime_error("Nao foi possivel abrir o script: " + caminho);
@@ -55,7 +55,7 @@ void ProvedorInputSim::carregarScript(const std::string& caminho) {
     _atual      = entradaAtual();
 }
 
-const InputFrame* ProvedorInputSim::entradaAtual() const {
+const InputFrame* InputSimProvider::entradaAtual() const {
     const InputFrame* candidato = nullptr;
     for (const auto& f : _frames) {
         if (f.frame <= _frameAtual)
@@ -66,17 +66,17 @@ const InputFrame* ProvedorInputSim::entradaAtual() const {
     return candidato;
 }
 
-bool ProvedorInputSim::isHeld(Tecla t) const {
+bool InputSimProvider::isHeld(Tecla t) const {
     return _atual && _atual->held.count(t) > 0;
 }
 
-bool ProvedorInputSim::wasPressed(Tecla t) const {
+bool InputSimProvider::wasPressed(Tecla t) const {
     if (!_atual || _atual->frame != _frameAtual)
         return false;
     return _atual->pressed.count(t) > 0;
 }
 
-void ProvedorInputSim::poll() {
+void InputSimProvider::poll() {
     ++_frameAtual;
     _atual = entradaAtual();
 }

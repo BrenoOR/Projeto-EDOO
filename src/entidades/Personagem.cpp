@@ -1,10 +1,11 @@
 #include "entidades/Personagem.h"
+#include "core/AssetsHandler.h"
 #include <spdlog/spdlog.h>
 
 Personagem::Personagem(Vect2 posSpawn)
     : _pos(posSpawn), _posSpawn(posSpawn) {}
 
-void Personagem::processarInput(const IProvedorInput& input, int indiceJogador) {
+void Personagem::processarInput(const IInputProvider& input, int indiceJogador) {
     _picaretaAtiva  = false;
     _restaurarAtiva = false;
 
@@ -85,5 +86,22 @@ Rect Personagem::calcularRectPicareta() const {
     }
 }
 
-void Personagem::mostrar(IRenderer&) const {
+void Personagem::carregarFrames(AssetsHandler& assets, int jogador) {
+    _corFallback = (jogador == 0) ? Color::blue() : Color::red();
+    const auto& sp = assets.sprites();
+    for (int f = 0; f < 4; ++f)
+        for (int fr = 0; fr < 2; ++fr)
+            frames[f][fr] = sp.robo[jogador][f][fr];
+}
+
+void Personagem::mostrar(IRenderer& r) const {
+    int fi = static_cast<int>(_facing);
+    int fr = _frameAnim - 1; // _frameAnim é 1 ou 2, converte para 0/1
+    TextureHandle tex = frames[fi][fr];
+
+    Rect dst{_pos.x, _pos.y, TAMANHO, TAMANHO};
+    if (tex)
+        r.drawTexture(tex, dst);
+    else
+        r.drawRect(dst, _corFallback);
 }

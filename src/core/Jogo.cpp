@@ -7,10 +7,11 @@
 #include <chrono>
 #include <iostream>
 
-Jogo::Jogo(IRenderer& renderer, IProvedorInput& input)
+Jogo::Jogo(IRenderer& renderer, IInputProvider& input)
     : _renderer(renderer), _input(input), _assets(renderer) {}
 
 void Jogo::inicializar(ModoJogo modo) {
+    _assets.carregarTodos();
     _telaAtual = std::make_unique<TelaHistoria>(_assets, modo);
 }
 

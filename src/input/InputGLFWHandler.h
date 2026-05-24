@@ -1,22 +1,22 @@
-#ifndef MINECIN_INPUT_MANIPULADORINPUTGLFW_H
-#define MINECIN_INPUT_MANIPULADORINPUTGLFW_H
+#ifndef MINECIN_INPUT_INPUTGLFWHANDLER_H
+#define MINECIN_INPUT_INPUTGLFWHANDLER_H
 
-#include "core/IProvedorInput.h"
+#include "core/IInputProvider.h"
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 #include <unordered_set>
 
-class ManipuladorInputGLFW : public IProvedorInput {
+class InputGLFWHandler : public IInputProvider {
     GLFWwindow*                   _janela;
     std::unordered_set<int>       _held;
     std::unordered_set<int>       _pressed;
     std::unordered_set<int>       _pressedBuffer;
 
-    static ManipuladorInputGLFW*  _instancia;
+    static InputGLFWHandler*  _instancia;
     static void callbackKey(GLFWwindow*, int key, int, int action, int);
 
 public:
-    explicit ManipuladorInputGLFW(GLFWwindow* janela);
+    explicit InputGLFWHandler(GLFWwindow* janela);
 
     bool isHeld(Tecla t)     const override;
     bool wasPressed(Tecla t) const override;
@@ -26,4 +26,4 @@ private:
     static int teclaParaGLFW(Tecla t);
 };
 
-#endif // MINECIN_INPUT_MANIPULADORINPUTGLFW_H
+#endif // MINECIN_INPUT_INPUTGLFWHANDLER_H

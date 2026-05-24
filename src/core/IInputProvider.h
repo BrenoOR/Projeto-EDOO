@@ -1,5 +1,5 @@
-#ifndef MINECIN_CORE_IPROVEDORINPUT_H
-#define MINECIN_CORE_IPROVEDORINPUT_H
+#ifndef MINECIN_CORE_IINPUTPROVIDER_H
+#define MINECIN_CORE_IINPUTPROVIDER_H
 
 enum class Tecla {
     W, A, S, D, F, G,
@@ -8,12 +8,12 @@ enum class Tecla {
     T, B, Escape
 };
 
-class IProvedorInput {
+class IInputProvider {
 public:
-    virtual ~IProvedorInput() = default;
+    virtual ~IInputProvider() = default;
     virtual bool isHeld(Tecla t)     const = 0;
     virtual bool wasPressed(Tecla t) const = 0;
     virtual void poll() = 0;
 };
 
-#endif // MINECIN_CORE_IPROVEDORINPUT_H
+#endif // MINECIN_CORE_IINPUTPROVIDER_H

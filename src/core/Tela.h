@@ -3,14 +3,14 @@
 
 #include <memory>
 
-class IProvedorInput;
+class IInputProvider;
 class IRenderer;
 
 class Tela {
 public:
     virtual ~Tela() = default;
     // Retorna a próxima tela, ou nullptr para continuar na atual
-    virtual std::unique_ptr<Tela> atualizar(float dt, const IProvedorInput& input) = 0;
+    virtual std::unique_ptr<Tela> atualizar(float dt, const IInputProvider& input) = 0;
     virtual void mostrar(IRenderer&) const {}
 };
 

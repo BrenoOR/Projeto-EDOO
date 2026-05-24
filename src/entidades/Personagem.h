@@ -3,9 +3,12 @@
 
 #include "tipos/Vect2.h"
 #include "tipos/Rect.h"
+#include "tipos/Color.h"
 #include "renderer/IRenderer.h"
 #include "enums/Facing.h"
-#include "core/IProvedorInput.h"
+#include "core/IInputProvider.h"
+
+class AssetsHandler;
 
 struct Inventario {
     int magnetita = 0;
@@ -24,8 +27,9 @@ public:
     TextureHandle frames[4][2]{};
 
     explicit Personagem(Vect2 posSpawn);
+    void carregarFrames(AssetsHandler& assets, int jogador);
 
-    void processarInput(const IProvedorInput& input, int indiceJogador);
+    void processarInput(const IInputProvider& input, int indiceJogador);
     void aplicarMovimento(Vect2 delta);
     void limitarPosicao(Rect limitesMundo);
     void voltarParaSpawn();
@@ -49,7 +53,8 @@ private:
     bool   _restaurarAtiva = false;
     Rect   _rectPicareta;
 
-    Rect calcularRectPicareta() const;
+    Rect  calcularRectPicareta() const;
+    Color _corFallback = Color::blue();
 };
 
 #endif // MINECIN_ENTIDADES_PERSONAGEM_H

@@ -1,15 +1,15 @@
-#include "input/ManipuladorInputGLFW.h"
+#include "input/InputGLFWHandler.h"
 
-ManipuladorInputGLFW* ManipuladorInputGLFW::_instancia = nullptr;
+InputGLFWHandler* InputGLFWHandler::_instancia = nullptr;
 
-ManipuladorInputGLFW::ManipuladorInputGLFW(GLFWwindow* janela)
+InputGLFWHandler::InputGLFWHandler(GLFWwindow* janela)
     : _janela(janela)
 {
     _instancia = this;
     glfwSetKeyCallback(janela, callbackKey);
 }
 
-void ManipuladorInputGLFW::callbackKey(GLFWwindow*, int key, int, int action, int) {
+void InputGLFWHandler::callbackKey(GLFWwindow*, int key, int, int action, int) {
     if (!_instancia) return;
     if (action == GLFW_PRESS) {
         _instancia->_held.insert(key);
@@ -19,7 +19,7 @@ void ManipuladorInputGLFW::callbackKey(GLFWwindow*, int key, int, int action, in
     }
 }
 
-int ManipuladorInputGLFW::teclaParaGLFW(Tecla t) {
+int InputGLFWHandler::teclaParaGLFW(Tecla t) {
     switch (t) {
         case Tecla::W:        return GLFW_KEY_W;
         case Tecla::A:        return GLFW_KEY_A;
@@ -40,15 +40,15 @@ int ManipuladorInputGLFW::teclaParaGLFW(Tecla t) {
     }
 }
 
-bool ManipuladorInputGLFW::isHeld(Tecla t) const {
+bool InputGLFWHandler::isHeld(Tecla t) const {
     return _held.count(teclaParaGLFW(t)) > 0;
 }
 
-bool ManipuladorInputGLFW::wasPressed(Tecla t) const {
+bool InputGLFWHandler::wasPressed(Tecla t) const {
     return _pressed.count(teclaParaGLFW(t)) > 0;
 }
 
-void ManipuladorInputGLFW::poll() {
+void InputGLFWHandler::poll() {
     _pressed = std::move(_pressedBuffer);
     _pressedBuffer.clear();
 }

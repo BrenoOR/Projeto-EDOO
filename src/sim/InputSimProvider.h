@@ -1,7 +1,7 @@
-#ifndef MINECIN_SIM_PROVEDORINPUTSIM_H
-#define MINECIN_SIM_PROVEDORINPUTSIM_H
+#ifndef MINECIN_SIM_INPUTSIMPROVIDER_H
+#define MINECIN_SIM_INPUTSIMPROVIDER_H
 
-#include "core/IProvedorInput.h"
+#include "core/IInputProvider.h"
 #include <string>
 #include <vector>
 #include <set>
@@ -12,7 +12,7 @@ struct InputFrame {
     std::set<Tecla>   pressed;
 };
 
-class ProvedorInputSim : public IProvedorInput {
+class InputSimProvider : public IInputProvider {
     std::vector<InputFrame> _frames;
     int                     _frameAtual = 0;
     const InputFrame*       _atual      = nullptr;
@@ -28,4 +28,4 @@ public:
     int frameAtual() const { return _frameAtual; }
 };
 
-#endif // MINECIN_SIM_PROVEDORINPUTSIM_H
+#endif // MINECIN_SIM_INPUTSIMPROVIDER_H

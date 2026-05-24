@@ -1,11 +1,11 @@
 #include "core/Jogo.h"
-#include "core/IProvedorInput.h"
+#include "core/IInputProvider.h"
 #include "enums/ModoJogo.h"
 #include "renderer/NullRenderer.h"
 #include "renderer/Janela.h"
 #include "renderer/OpenGLRenderer.h"
-#include "input/ManipuladorInputGLFW.h"
-#include "sim/ProvedorInputSim.h"
+#include "input/InputGLFWHandler.h"
+#include "sim/InputSimProvider.h"
 
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
@@ -44,7 +44,7 @@ static ModoJogo lerModoDoScript(const std::string& caminho) {
     return (modo == "Blocos") ? ModoJogo::Blocos : ModoJogo::Tempo;
 }
 
-class InputNulo : public IProvedorInput {
+class InputNulo : public IInputProvider {
 public:
     bool isHeld(Tecla)     const override { return false; }
     bool wasPressed(Tecla) const override { return false; }
@@ -69,7 +69,7 @@ int main(int argc, char* argv[]) {
         spdlog::info("Modo simulacao: {}", scriptPath);
 
         NullRenderer     renderer;
-        ProvedorInputSim input;
+        InputSimProvider input;
         input.carregarScript(scriptPath);
 
         ModoJogo modo = lerModoDoScript(scriptPath);
@@ -96,7 +96,7 @@ int main(int argc, char* argv[]) {
 
         Janela          janela(680, 680, "MINECIn");
         OpenGLRenderer  renderer(680, 680);
-        ManipuladorInputGLFW input(janela.ptr());
+        InputGLFWHandler input(janela.ptr());
 
         Jogo jogo(renderer, input);
         jogo.executar(
