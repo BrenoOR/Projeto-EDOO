@@ -9,7 +9,7 @@ class TelaFinal : public Tela {
     bool _encerrado = false;
 public:
     TelaFinal(int p1, int p2);
-    std::unique_ptr<Tela> atualizar(float dt, const IProvedorInput& input) override;
+    std::unique_ptr<Tela> atualizar(float dt, const IInputProvider& input) override;
 
     bool encerrou()      const { return _encerrado;   }
     int getPontuacao1()  const { return _pontuacao1;  }

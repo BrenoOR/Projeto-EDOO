@@ -1,17 +1,19 @@
 #include "telas/TelaJogo.h"
 #include "telas/TelaFinal.h"
-#include "core/GerenciadorAssets.h"
+#include "core/AssetsHandler.h"
 
-TelaJogo::TelaJogo(GerenciadorAssets& assets, ModoJogo modo)
+TelaJogo::TelaJogo(AssetsHandler& assets, ModoJogo modo)
     : _assets(assets)
     , _modo(modo)
     , _p1({0.0f, 610.0f})
     , _p2({650.0f, 610.0f})
 {
     _mapa.construir(_assets);
+    _p1.carregarFrames(_assets, 0);
+    _p2.carregarFrames(_assets, 1);
 }
 
-std::unique_ptr<Tela> TelaJogo::atualizar(float, const IProvedorInput& input) {
+std::unique_ptr<Tela> TelaJogo::atualizar(float, const IInputProvider& input) {
     _p1.processarInput(input, 0);
     _p2.processarInput(input, 1);
 

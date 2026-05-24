@@ -4,14 +4,14 @@
 #include "core/Tela.h"
 #include "enums/ModoJogo.h"
 
-class GerenciadorAssets;
+class AssetsHandler;
 
 class TelaHistoria : public Tela {
-    GerenciadorAssets& _assets;
-    ModoJogo           _modo;
+    AssetsHandler& _assets;
+    ModoJogo         _modo;
 public:
-    TelaHistoria(GerenciadorAssets& assets, ModoJogo modo);
-    std::unique_ptr<Tela> atualizar(float dt, const IProvedorInput& input) override;
+    TelaHistoria(AssetsHandler& assets, ModoJogo modo);
+    std::unique_ptr<Tela> atualizar(float dt, const IInputProvider& input) override;
 };
 
 #endif // MINECIN_TELAS_TELAHISTORIA_H

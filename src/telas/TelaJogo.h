@@ -7,7 +7,7 @@
 #include "entidades/Personagem.h"
 #include "sistemas/SistemaColisao.h"
 
-class GerenciadorAssets;
+class AssetsHandler;
 
 class TelaJogo : public Tela {
 public:
@@ -16,12 +16,12 @@ public:
     static constexpr float LARGURA_MUNDO = 680.0f;
     static constexpr float ALTURA_MUNDO  = 640.0f;
 
-    TelaJogo(GerenciadorAssets& assets, ModoJogo modo);
-    std::unique_ptr<Tela> atualizar(float dt, const IProvedorInput& input) override;
+    TelaJogo(AssetsHandler& assets, ModoJogo modo);
+    std::unique_ptr<Tela> atualizar(float dt, const IInputProvider& input) override;
     void mostrar(IRenderer& r) const override;
 
 private:
-    GerenciadorAssets& _assets;
+    AssetsHandler& _assets;
     ModoJogo           _modo;
     Mapa               _mapa;
     Personagem         _p1;
