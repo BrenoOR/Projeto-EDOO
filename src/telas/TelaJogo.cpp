@@ -1,0 +1,62 @@
+#include "telas/TelaJogo.h"
+#include "telas/TelaFinal.h"
+#include "core/AssetsHandler.h"
+#include "ui/HUDData.h"
+
+TelaJogo::TelaJogo(AssetsHandler& assets, ModoJogo modo, bool simulacao)
+    : _assets(assets)
+    , _modo(modo)
+    , _simulacao(simulacao)
+    , _p1({0.0f, 610.0f})
+    , _p2({650.0f, 610.0f})
+{
+    _mapa.construir(_assets);
+    _p1.carregarFrames(_assets, 0);
+    _p2.carregarFrames(_assets, 1);
+    _hud.carregar(_assets);
+}
+
+std::unique_ptr<Tela> TelaJogo::atualizar(float, const IInputProvider& input) {
+    _p1.processarInput(input, 0);
+    _p2.processarInput(input, 1);
+
+    _colisao.resolverMovimento(_p1, _mapa);
+    _colisao.resolverMovimento(_p2, _mapa);
+
+    _colisao.resolverAcao(_p1, _p2, _mapa.blocos());
+    _colisao.resolverAcao(_p2, _p1, _mapa.blocos());
+
+    _mapa.removerMortos();
+
+    _p1.limitarPosicao({0.0f, 0.0f, LARGURA_MUNDO, ALTURA_MUNDO});
+    _p2.limitarPosicao({0.0f, 0.0f, LARGURA_MUNDO, ALTURA_MUNDO});
+
+    ++_ticks;
+
+    if (jogoAcabou())
+        return std::make_unique<TelaFinal>(
+            _p1.calcularPontuacao(),
+            _p2.calcularPontuacao());
+
+    return nullptr;
+}
+
+bool TelaJogo::jogoAcabou() const {
+    if (_modo == ModoJogo::Tempo)  return _ticks >= TICKS_TEMPO;
+    if (_modo == ModoJogo::Blocos) return _mapa.contarMineraveis() == 0;
+    return false;
+}
+
+void TelaJogo::mostrar(IRenderer& r) const {
+    _mapa.mostrar(r);
+    _p1.mostrar(r);
+    _p2.mostrar(r);
+
+    HUDData d;
+    d.p1                  = _p1.inventario;
+    d.p2                  = _p2.inventario;
+    d.modoTempo           = (_modo == ModoJogo::Tempo);
+    d.ticksRestantes      = TICKS_TEMPO - _ticks;
+    d.mineraveisRestantes = _mapa.contarMineraveis();
+    _hud.mostrar(r, d);
+}

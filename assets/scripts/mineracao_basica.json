@@ -1,0 +1,14 @@
+{
+  "modo": "Tempo",
+  "frames": [
+    { "frame": 0,   "held": ["W"],         "pressed": [] },
+    { "frame": 10,  "held": ["W"],         "pressed": ["F"] },
+    { "frame": 11,  "held": ["W"],         "pressed": [] },
+    { "frame": 20,  "held": ["D"],         "pressed": [] },
+    { "frame": 30,  "held": ["D"],         "pressed": ["F"] },
+    { "frame": 31,  "held": ["D"],         "pressed": [] },
+    { "frame": 60,  "held": ["S"],         "pressed": [] },
+    { "frame": 90,  "held": ["A"],         "pressed": [] },
+    { "frame": 120, "held": [],            "pressed": [] }
+  ]
+}

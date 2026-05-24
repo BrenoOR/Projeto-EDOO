@@ -1,0 +1,45 @@
+name: Build and Release
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y \
+            g++ \
+            libjsoncpp-dev \
+            libspdlog-dev \
+            libfmt-dev \
+            libglfw3-dev \
+            libglew-dev \
+            libgl1-mesa-dev \
+            xvfb
+
+      - name: Build
+        run: bash build.sh
+
+      - name: Get short SHA
+        id: sha
+        run: echo "short=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: build-${{ steps.sha.outputs.short }}
+          name: Build ${{ steps.sha.outputs.short }}
+          body: |
+            Commit: ${{ github.sha }}
+            Mensagem: ${{ github.event.head_commit.message }}
+          files: bin/minecin
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}

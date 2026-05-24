@@ -44,6 +44,9 @@ build/
 Build/
 build-*/
 
+# Binary directories
+bin/
+
 # CMake generated files
 CMakeFiles/
 CMakeCache.txt
@@ -60,6 +63,9 @@ compile_commands.json
 
 # vcpkg
 vcpkg_installed/
+
+# VS Code
+.vscode/
 
 # debug information files
 *.dwo
