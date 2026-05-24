@@ -22,8 +22,9 @@ public:
     bool estaMorto() const { return _morto; }
 
 protected:
-    int _durabilidade = 1;
-    bool _morto = false;
+    int  _durabilidade    = 1;
+    int  _durabilidadeMax = 1;
+    bool _morto           = false;
 };
 
 #endif // MINECIN_MUNDO_PEDRA_H

@@ -6,7 +6,7 @@
 #include <optional>
 #include "mundo/Pedra.h"
 
-class GerenciadorAssets;
+class AssetsHandler;
 
 class Mapa {
 public:
@@ -14,7 +14,7 @@ public:
     static constexpr int   ROWS      = 16;
     static constexpr float TAM_BLOCO = 40.0f;
 
-    void construir(GerenciadorAssets& assets);
+    void construir(AssetsHandler& assets);
     void mostrar(IRenderer& r) const;
     void removerMortos();
     std::vector<Pedra*>& blocos() { return _blocosAtivos; }

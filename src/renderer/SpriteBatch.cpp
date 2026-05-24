@@ -54,7 +54,8 @@ void SpriteBatch::adicionarQuad(TextureHandle tex, Rect dst, Rect src, Color cor
     float x1 = dst.x + dst.w,   y1 = dst.y + dst.h;
     float u0 = src.x,            v0 = src.y;
     float u1 = src.x + src.w,   v1 = src.y + src.h;
-    float r = cor.r, g = cor.g, b = cor.b, a = cor.a;
+    float r = cor.r / 255.0f, g = cor.g / 255.0f,
+          b = cor.b / 255.0f, a = cor.a / 255.0f;
 
     // dois triângulos formando o quad
     _buffer.push_back({x0, y0, u0, v0, r, g, b, a});

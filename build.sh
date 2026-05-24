@@ -24,12 +24,13 @@ SOURCES=(
     "${SRC}/telas/TelaHistoria.cpp"
     "${SRC}/telas/TelaInicio.cpp"
     "${SRC}/core/Jogo.cpp"
-    "${SRC}/sim/ProvedorInputSim.cpp"
+    "${SRC}/core/AssetsHandler.cpp"
+    "${SRC}/sim/InputSimProvider.cpp"
     "${SRC}/renderer/ShaderProgram.cpp"
     "${SRC}/renderer/SpriteBatch.cpp"
     "${SRC}/renderer/OpenGLRenderer.cpp"
     "${SRC}/renderer/Janela.cpp"
-    "${SRC}/input/ManipuladorInputGLFW.cpp"
+    "${SRC}/input/InputGLFWHandler.cpp"
 )
 
 echo "Compilando MINECIn..."

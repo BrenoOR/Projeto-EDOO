@@ -3,7 +3,7 @@
 #include "mundo/Cobre.h"
 #include "mundo/Ouro.h"
 #include "mundo/Muro.h"
-#include "core/GerenciadorAssets.h"
+#include "core/AssetsHandler.h"
 #include <random>
 #include <algorithm>
 
@@ -86,13 +86,14 @@ static std::vector<std::vector<CelulaTemp>> gerarGrade() {
     return grade;
 }
 
-void Mapa::construir(GerenciadorAssets&) {
+void Mapa::construir(AssetsHandler& assets) {
     _grade.clear();
     _grade.resize(ROWS);
     for (auto& row : _grade) row.resize(COLS);
     _blocosAtivos.clear();
 
     auto celulaGrade = gerarGrade();
+    const auto& sp = assets.sprites();
 
     for (int row = 0; row < ROWS; ++row) {
         for (int col = 0; col < COLS; ++col) {
@@ -102,15 +103,15 @@ void Mapa::construir(GerenciadorAssets&) {
             std::unique_ptr<Pedra> p;
             switch (cel.tipo) {
                 case CelulaTemp::Tipo::Pedra:
-                    p = std::make_unique<Pedra>(b, cel.durabilidade); break;
+                    p = std::make_unique<Pedra>(b, cel.durabilidade, sp.pedra); break;
                 case CelulaTemp::Tipo::Magnetita:
-                    p = std::make_unique<Magnetita>(b); break;
+                    p = std::make_unique<Magnetita>(b, sp.magnetita); break;
                 case CelulaTemp::Tipo::Cobre:
-                    p = std::make_unique<Cobre>(b); break;
+                    p = std::make_unique<Cobre>(b, sp.cobre); break;
                 case CelulaTemp::Tipo::Ouro:
-                    p = std::make_unique<Ouro>(b); break;
+                    p = std::make_unique<Ouro>(b, sp.ouro); break;
                 case CelulaTemp::Tipo::Muro:
-                    p = std::make_unique<Muro>(b); break;
+                    p = std::make_unique<Muro>(b, sp.muro); break;
                 default: break;
             }
 
