@@ -1,6 +1,7 @@
 #include "telas/TelaJogo.h"
 #include "telas/TelaFinal.h"
 #include "core/AssetsHandler.h"
+#include "ui/HUDData.h"
 
 TelaJogo::TelaJogo(AssetsHandler& assets, ModoJogo modo)
     : _assets(assets)
@@ -11,6 +12,7 @@ TelaJogo::TelaJogo(AssetsHandler& assets, ModoJogo modo)
     _mapa.construir(_assets);
     _p1.carregarFrames(_assets, 0);
     _p2.carregarFrames(_assets, 1);
+    _hud.carregar(_assets);
 }
 
 std::unique_ptr<Tela> TelaJogo::atualizar(float, const IInputProvider& input) {
@@ -48,4 +50,12 @@ void TelaJogo::mostrar(IRenderer& r) const {
     _mapa.mostrar(r);
     _p1.mostrar(r);
     _p2.mostrar(r);
+
+    HUDData d;
+    d.p1                  = _p1.inventario;
+    d.p2                  = _p2.inventario;
+    d.modoTempo           = (_modo == ModoJogo::Tempo);
+    d.ticksRestantes      = TICKS_TEMPO - _ticks;
+    d.mineraveisRestantes = _mapa.contarMineraveis();
+    _hud.mostrar(r, d);
 }

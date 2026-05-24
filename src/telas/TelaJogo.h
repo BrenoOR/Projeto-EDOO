@@ -6,6 +6,7 @@
 #include "mundo/Mapa.h"
 #include "entidades/Personagem.h"
 #include "sistemas/SistemaColisao.h"
+#include "ui/HUDRenderer.h"
 
 class AssetsHandler;
 
@@ -27,6 +28,7 @@ private:
     Personagem         _p1;
     Personagem         _p2;
     SistemaColisao     _colisao;
+    RenderizadorHUD    _hud;
     int                _ticks = 0;
 
     bool jogoAcabou() const;

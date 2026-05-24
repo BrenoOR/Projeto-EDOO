@@ -31,6 +31,8 @@ SOURCES=(
     "${SRC}/renderer/OpenGLRenderer.cpp"
     "${SRC}/renderer/Janela.cpp"
     "${SRC}/input/InputGLFWHandler.cpp"
+    "${SRC}/ui/Icone.cpp"
+    "${SRC}/ui/HUDRenderer.cpp"
 )
 
 echo "Compilando MINECIn..."

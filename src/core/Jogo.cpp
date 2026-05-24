@@ -12,6 +12,7 @@ Jogo::Jogo(IRenderer& renderer, IInputProvider& input)
 
 void Jogo::inicializar(ModoJogo modo) {
     _assets.carregarTodos();
+    _assets.carregarIcones();
     _telaAtual = std::make_unique<TelaHistoria>(_assets, modo);
 }
 
