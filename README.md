@@ -55,15 +55,19 @@ touch <filename>.json
 A simulação roda o jogo frame a frame, sem esperar por gráficos. Então a descrição contém a ação do player realizada em determinados frames da simulação.
 
 ```json
-[
-    {
-        "frame": 0,
-        "held": [],
-        "pressed": [] 
-    },
-]
+{
+    "modo": "",
+    "frames": [
+        {
+            "frame": 0,
+            "held": [],
+            "pressed": [] 
+        },
+    ]
+}
 ```
 
+Escolher modo entre: `Tempo` ou `Blocos`.
 Exemplo de comandos para `held` e `pressed`:
 
 ```json
@@ -73,7 +77,7 @@ Exemplo de comandos para `held` e `pressed`:
     "S": Baixo,
     "D": Direita,
     "F": Minerar,
-    "G": Colocar
+    "G": Restaurar
 }
 ```
 
@@ -86,3 +90,7 @@ Para executar o jogo basta executar o binário gerado:
 ```
 
 Use a flag `--simulacao <filename>.json` para simular o jogo.
+
+```bash
+./bin/minecin --simulacao <filename>.json
+```
