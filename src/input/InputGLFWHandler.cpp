@@ -36,6 +36,7 @@ int InputGLFWHandler::teclaParaGLFW(Tecla t) {
         case Tecla::T:        return GLFW_KEY_T;
         case Tecla::B:        return GLFW_KEY_B;
         case Tecla::Escape:   return GLFW_KEY_ESCAPE;
+        case Tecla::Enter:    return GLFW_KEY_ENTER;
         default:              return -1;
     }
 }

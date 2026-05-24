@@ -20,6 +20,7 @@ static const std::map<std::string, Tecla> MAPA_TECLAS = {
     {"T",        Tecla::T},
     {"B",        Tecla::B},
     {"Escape",   Tecla::Escape},
+    {"Enter",    Tecla::Enter},
 };
 
 static Tecla teclaDeString(const std::string& s) {

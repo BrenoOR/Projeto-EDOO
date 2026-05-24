@@ -5,7 +5,7 @@ enum class Tecla {
     W, A, S, D, F, G,
     Cima, Baixo, Esquerda, Direita,
     Num0, Num1,
-    T, B, Escape
+    T, B, Escape, Enter
 };
 
 class IInputProvider {

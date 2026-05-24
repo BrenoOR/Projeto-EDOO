@@ -33,6 +33,7 @@ SOURCES=(
     "${SRC}/input/InputGLFWHandler.cpp"
     "${SRC}/ui/Icone.cpp"
     "${SRC}/ui/HUDRenderer.cpp"
+    "${SRC}/renderer/FonteBitmap.cpp"
 )
 
 echo "Compilando MINECIn..."

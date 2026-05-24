@@ -16,8 +16,9 @@ class Jogo {
     AssetsHandler         _assets;
     std::unique_ptr<Tela> _telaAtual;
     bool                  _terminou = false;
+    bool                  _simulacao;
 public:
-    Jogo(IRenderer& renderer, IInputProvider& input);
+    Jogo(IRenderer& renderer, IInputProvider& input, bool simulacao = false);
     void inicializar(ModoJogo modo);
     void processar(float dt);
     void mostrar() const;

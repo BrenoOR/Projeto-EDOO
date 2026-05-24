@@ -1,4 +1,5 @@
 #include "core/Jogo.h"
+#include "core/IInputProvider.h"
 #include "telas/TelaHistoria.h"
 #include "telas/TelaFinal.h"
 #include "renderer/IRenderer.h"
@@ -7,13 +8,13 @@
 #include <chrono>
 #include <iostream>
 
-Jogo::Jogo(IRenderer& renderer, IInputProvider& input)
-    : _renderer(renderer), _input(input), _assets(renderer) {}
+Jogo::Jogo(IRenderer& renderer, IInputProvider& input, bool simulacao)
+    : _renderer(renderer), _input(input), _assets(renderer), _simulacao(simulacao) {}
 
 void Jogo::inicializar(ModoJogo modo) {
     _assets.carregarTodos();
     _assets.carregarIcones();
-    _telaAtual = std::make_unique<TelaHistoria>(_assets, modo);
+    _telaAtual = std::make_unique<TelaHistoria>(_assets, modo, _simulacao);
 }
 
 void Jogo::processar(float dt) {
@@ -53,6 +54,7 @@ void Jogo::executar(ModoJogo modo,
 
     while (!terminou() && !shouldQuit()) {
         pollEvents();
+        _input.poll();
 
         auto   agora = Clock::now();
         double delta = Dur(agora - anterior).count();
@@ -79,13 +81,13 @@ void Jogo::executar(ModoJogo modo,
 void Jogo::imprimirResumo() const {
     auto* final = dynamic_cast<const TelaFinal*>(_telaAtual.get());
     if (!final) return;
-    std::cout << "=== Fim de Jogo ===\n";
-    std::cout << "P1  pts=" << final->getPontuacao1() << "\n";
-    std::cout << "P2  pts=" << final->getPontuacao2() << "\n";
+    std::cout << "\n=== Fim de Jogo ===\n";
+    std::cout << "   P1  pts = " << final->getPontuacao1() << "\n";
+    std::cout << "   P2  pts = " << final->getPontuacao2() << "\n";
     if (final->getPontuacao1() > final->getPontuacao2())
-        std::cout << "Vencedor: P1\n";
+        std::cout << "   Vencedor: P1\n";
     else if (final->getPontuacao2() > final->getPontuacao1())
-        std::cout << "Vencedor: P2\n";
+        std::cout << "   Vencedor: P2\n";
     else
-        std::cout << "Empate!\n";
+        std::cout << "   Empate!\n";
 }

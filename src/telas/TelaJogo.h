@@ -17,13 +17,14 @@ public:
     static constexpr float LARGURA_MUNDO = 680.0f;
     static constexpr float ALTURA_MUNDO  = 640.0f;
 
-    TelaJogo(AssetsHandler& assets, ModoJogo modo);
+    TelaJogo(AssetsHandler& assets, ModoJogo modo, bool simulacao);
     std::unique_ptr<Tela> atualizar(float dt, const IInputProvider& input) override;
     void mostrar(IRenderer& r) const override;
 
 private:
     AssetsHandler& _assets;
     ModoJogo           _modo;
+    bool               _simulacao;
     Mapa               _mapa;
     Personagem         _p1;
     Personagem         _p2;

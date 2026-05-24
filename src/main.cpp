@@ -75,7 +75,7 @@ int main(int argc, char* argv[]) {
         ModoJogo modo = lerModoDoScript(scriptPath);
         spdlog::info("ModoJogo: {}", modo == ModoJogo::Blocos ? "Blocos" : "Tempo");
 
-        Jogo jogo(renderer, input);
+        Jogo jogo(renderer, input, true);
         jogo.inicializar(modo);
 
         constexpr float DT    = 1.0f / 30.0f;
@@ -98,7 +98,7 @@ int main(int argc, char* argv[]) {
         OpenGLRenderer  renderer(680, 680);
         InputGLFWHandler input(janela.ptr());
 
-        Jogo jogo(renderer, input);
+        Jogo jogo(renderer, input, false);
         jogo.executar(
             ModoJogo::Tempo,
             [&]{ return janela.deveFechar(); },

@@ -3,9 +3,10 @@
 #include "core/AssetsHandler.h"
 #include "ui/HUDData.h"
 
-TelaJogo::TelaJogo(AssetsHandler& assets, ModoJogo modo)
+TelaJogo::TelaJogo(AssetsHandler& assets, ModoJogo modo, bool simulacao)
     : _assets(assets)
     , _modo(modo)
+    , _simulacao(simulacao)
     , _p1({0.0f, 610.0f})
     , _p2({650.0f, 610.0f})
 {
