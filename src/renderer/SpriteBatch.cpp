@@ -46,7 +46,8 @@ void SpriteBatch::setGlobalAlpha(float alpha) {
 }
 
 void SpriteBatch::adicionarQuad(TextureHandle tex, Rect dst, Rect src, Color cor) {
-    if (tex != _texAtual && !_buffer.empty())
+    if (!_buffer.empty() &&
+        (tex != _texAtual || (int)_buffer.size() >= MAX_QUADS * 6))
         flush();
     _texAtual = tex;
 

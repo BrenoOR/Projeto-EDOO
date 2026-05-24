@@ -14,7 +14,7 @@ struct Vertice {
 };
 
 class SpriteBatch {
-    static constexpr int MAX_QUADS = 2048;
+    static constexpr int MAX_QUADS = 8192;
 
     GLuint _vao = 0, _vbo = 0;
     std::vector<Vertice> _buffer;
