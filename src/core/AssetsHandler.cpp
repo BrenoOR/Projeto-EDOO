@@ -19,3 +19,10 @@ void AssetsHandler::carregarTodos() {
                 _sprites.robo[j][f][fr] = carregarTextura(path);
             }
 }
+
+void AssetsHandler::carregarIcones() {
+    _sprites.icone_magnetita = carregarTextura("assets/sprites/icone_magnetita.png");
+    _sprites.icone_cobre     = carregarTextura("assets/sprites/icone_cobre.png");
+    _sprites.icone_ouro      = carregarTextura("assets/sprites/icone_ouro.png");
+    _sprites.icone_pedra     = carregarTextura("assets/sprites/icone_pedra.png");
+}
