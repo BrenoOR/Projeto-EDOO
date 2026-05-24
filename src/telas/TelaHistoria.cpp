@@ -24,9 +24,12 @@ std::unique_ptr<Tela> TelaHistoria::atualizar(float dt, const IInputProvider& in
     bool concluido = (_charAtual >= (int)TEXTO.size());
 
     if (!concluido) {
-        if (input.wasPressed(Tecla::T) || input.wasPressed(Tecla::B)
-         || input.wasPressed(Tecla::W) || input.wasPressed(Tecla::Cima)
-         || input.wasPressed(Tecla::F) || input.wasPressed(Tecla::Num0)) {
+        if ((input.wasPressed(Tecla::T) || input.isHeld(Tecla::T))
+         || (input.wasPressed(Tecla::B) || input.isHeld(Tecla::B))
+         || (input.wasPressed(Tecla::W) || input.isHeld(Tecla::W))
+         || (input.wasPressed(Tecla::Cima) || input.isHeld(Tecla::Cima))
+         || (input.wasPressed(Tecla::F) || input.isHeld(Tecla::F))
+         || (input.wasPressed(Tecla::Num0) || input.isHeld(Tecla::Num0))) {
             _charAtual = (int)TEXTO.size();
         } else {
             _acumulado += dt;
